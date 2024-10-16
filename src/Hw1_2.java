@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Scanner;
 public class Hw1_2 {
     public static void main(String[] args) {
@@ -28,7 +29,7 @@ public class Hw1_2 {
                     System.out.println("0으로 나눌 수 없습니다.");
                     System.exit(-1);
                 }
-                result = operand1.divide(operand2);
+                result = operand1.divide(operand2, MathContext.DECIMAL128);
 
                 }
                 break;
@@ -38,5 +39,6 @@ public class Hw1_2 {
             }
         }
         System.out.println(operand1 + operator+operand2 +"의 계산 결과는 "+result);
+        input.close();
     }
 }
