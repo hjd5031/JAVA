@@ -1,3 +1,5 @@
+package Assignment1;
+
 import java.util.Scanner;
 import java.lang.Math;
 public class Hw1_1 {
