@@ -1,29 +1,27 @@
-package Assignment2;
-
 import java.util.Arrays;
 import java.util.Scanner;
-class MySeatInfo {
+class MySeatInfo {//좌석의 정보가 저장되는 클래스
     public String[] seat;
 
-    public MySeatInfo(int n) {
+    public MySeatInfo(int n) {//좌석 "---"로 초기화
         seat = new String[n];
         Arrays.fill(seat, "---");
 
     }
 
-    public void printSeatStatus() {
+    public void printSeatStatus() {//for-each문으로 좌석 정보 출력
         for (var e : seat) {
             System.out.print(e + " ");
         }
         System.out.println();
     }
 
-    public void reserveSeat(String n, int num) {
+    public void reserveSeat(String n, int num) {//좌석 예약 여부 확인 후 예약
         if (seat[num].equals("---")) {
             seat[num] = n;
         } else System.out.println("Seat Already Taken!!!");
     }
-    public void cancelReservation(String n){
+    public void cancelReservation(String n){//입력된 이름이 있는지 확인 후 예약 취소
         boolean found = false;
         for(int i = 0;i<seat.length;i++){
             if(seat[i].equals(n)){
@@ -38,59 +36,14 @@ class MySeatInfo {
 }
 class MyConcertReservation{
     Scanner sc = new Scanner(System.in);
-    private MySeatInfo s[];
-    private String grade[] = {"S","A","B"};
+    private MySeatInfo []s;
+
     MyConcertReservation(){
         s = new MySeatInfo[3];
         for(int i = 0;i<s.length;i++)
             s[i] = new MySeatInfo(10);
     }
-    public void reservationSystem(){
-        int select;
-        int seatGrade;
-        String name;
-        int seatNumber;
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("명품 콘서트 홀 예약 시스템입니다.");
-        while(true){
-            System.out.print("예약:1, 조회:2, 취소:3, 끝내기:4>>");
-            select = sc.nextInt();
-            switch (select){
-                case 1: {//reserve
-                    System.out.print("좌석구분 S(1), A(2), B(3)>>");
-                    seatGrade = sc.nextInt();
-                    if(seatGradeCheck(seatGrade))break;
-                    checkSeatStatus(seatGrade);
-                    System.out.print("이름>>"); name = sc.next();
-                    System.out.print("번호>>"); seatNumber = sc.nextInt();
-                    if(seatNumberCheck(seatNumber))break;
-                    reserve(name, seatNumber-1, seatGrade);
-                }
-                break;
-                case 2: {
-                    for(int i = 1;i<=3;i++){
-                        checkSeatStatus(i);
-                    }
-                    System.out.println("<<<조회를 완료하였습니다.>>>");
-                }
-                break;
-                case 3:{
-                    System.out.print("좌석 S:1, A:2, B:3>>");seatGrade = sc.nextInt();
-                    if(seatGradeCheck(seatGrade))break;
-                    checkSeatStatus(seatGrade);
-                    System.out.print("이름>>");name = sc.next();
-                    cancel(seatGrade, name);
-                }
-                break;
-                case 4:
-                    System.exit(-1);
-                default:
-                    System.out.println("Wrong Input Please Try Again");
-            }
-        }
-    }
-    public void reserve(String n, int num, int grade){
+    public void reserve(String n, int num, int grade){//좌석별 예약
         switch (grade){
             case 1:
                 s[0].reserveSeat(n,num);
@@ -106,7 +59,7 @@ class MyConcertReservation{
                 break;
         }
     }
-    public void checkSeatStatus(int grade){
+    public void checkSeatStatus(int grade){//좌석별 정보 확인
         switch (grade){
             case 1:{
                 System.out.print("S>>>");
@@ -130,7 +83,7 @@ class MyConcertReservation{
         }
     }
 
-    public void cancel(int grade, String name){
+    public void cancel(int grade, String name){//좌석별 예약 취소
         switch (grade){
             case 1:
                 s[0].cancelReservation(name);
@@ -147,19 +100,64 @@ class MyConcertReservation{
 
         }
     }
-    public boolean seatGradeCheck(int sg){
+    public boolean seatGradeCheck(int sg){//좌석등급에 대한 번호가 옳게 들어왔는지 판단
         if(sg!=1&&sg!=2&&sg!=3){
             System.out.println("Wrong Seat Grade Try  Again");
             return true;
         }
         return false;
     }
-    public boolean seatNumberCheck(int sn){
+    public boolean seatNumberCheck(int sn){//좌석 번호가 인덱스 안에 있는지 판단
         if(sn<1||sn>10){
             System.out.println("Wrong Seat Number Try  Again");
             return true;
         }
         return false;
+    }
+    public void reservationSystem(){//전체적인 예매 시스템
+        int select;
+        int seatGrade;
+        String name;
+        int seatNumber;
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("명품 콘서트 홀 예약 시스템입니다.");
+        while(true){
+            System.out.print("예약:1, 조회:2, 취소:3, 끝내기:4>>");
+            select = sc.nextInt();
+            switch (select){
+                case 1: {//reserve
+                    System.out.print("좌석구분 S(1), A(2), B(3)>>");
+                    seatGrade = sc.nextInt();
+                    if(seatGradeCheck(seatGrade))break;
+                    checkSeatStatus(seatGrade);
+                    System.out.print("이름>>"); name = sc.next();
+                    System.out.print("번호>>"); seatNumber = sc.nextInt();
+                    if(seatNumberCheck(seatNumber))break;
+                    reserve(name, seatNumber-1, seatGrade);
+                }
+                break;
+                case 2: {//print status
+                    for(int i = 1;i<=3;i++){
+                        checkSeatStatus(i);
+                    }
+                    System.out.println("<<<조회를 완료하였습니다.>>>");
+                }
+                break;
+                case 3:{//cancel reservation
+                    System.out.print("좌석 S:1, A:2, B:3>>");seatGrade = sc.nextInt();
+                    if(seatGradeCheck(seatGrade))break;
+                    checkSeatStatus(seatGrade);
+                    System.out.print("이름>>");name = sc.next();
+                    cancel(seatGrade, name);
+                }
+                break;
+                case 4://exit program
+                    System.exit(-1);
+                default:
+                    System.out.println("Wrong Input Please Try Again");
+            }
+        }
     }
 }
 public class Hw2_1{

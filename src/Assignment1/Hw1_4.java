@@ -1,22 +1,20 @@
-package Assignment1;
-
 public class Hw1_4 {
     public static void main(String[]args){
         int tmp;
         int i ,j;
-        int [][]arr = new int[4][4];
+        int [][]arr = new int[4][4];//4 X 4 배열 선언
         for(int cnt = 0;cnt<10;cnt++){
-            i = (int)((Math.random()*10)%4);
-            j = (int)((Math.random()*10)%4);
-            tmp = (int)(Math.random()*10+1);
+            i = (int)((Math.random()*10)%4);//열값 랜덤
+            j = (int)((Math.random()*10)%4);//행값 랜덤
+            tmp = (int)(Math.random()*10+1);//저장할 값
             if(arr[i][j]>0)cnt--;
             else arr[i][j] = tmp;
 
         }
-        int cnt = 0;
-        for(i = 0;i<4;i++){
-            for(j = 0;j<4;j++){
-                System.out.print(arr[i][j] + "  ");
+
+        for(int []e:arr){//for-each문으로 이중배열 출력
+            for(var x : e){
+                System.out.print(x+ "    ");
             }
             System.out.println();
         }

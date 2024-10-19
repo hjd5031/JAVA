@@ -1,34 +1,32 @@
-package Assignment1;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Scanner;
 public class Hw1_2 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        String operator;
-        BigDecimal operand1;
-        BigDecimal operand2;
-        BigDecimal result = new BigDecimal(0);
+        String operator;//연산자
+        BigDecimal operand1;//1번 피연산자
+        BigDecimal operand2;//2번 피연산자
+        BigDecimal result = new BigDecimal(0);//연산 결과
         System.out.print("연산>>");
         operand1 = input.nextBigDecimal();
         operator = input.next();
         operand2 = input.nextBigDecimal();
         switch (operator){
             case "+":
-                result = operand1.add(operand2);
+                result = operand1.add(operand2);        //"덧셈"연산
                 break;
             case "-":
-                result = operand1.subtract(operand2);
+                result = operand1.subtract(operand2);   //"뺄셈"연산
 
                 break;
             case "*":
-                result = operand1.multiply(operand2);
+                result = operand1.multiply(operand2);       //"곱셈"연산
 
                 break;
             case "/": {
-                if (operand2.equals(result)) {
-                    System.out.println("0으로 나눌 수 없습니다.");
+                if (operand2.equals(result)) {                      //"나눗셈"연산
+                    System.out.println("0으로 나눌 수 없습니다.");//0으로 나눌 시 오류문자 출력 종료
                     System.exit(-1);
                 }
                 result = operand1.divide(operand2, MathContext.DECIMAL128);

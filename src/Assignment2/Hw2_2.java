@@ -1,5 +1,3 @@
-package Assignment2;
-
 abstract class PairMap{
     protected String keyArray[];
     protected String valueArray[];
@@ -8,21 +6,21 @@ abstract class PairMap{
     abstract String delete(String key);//key, value delete return value
     abstract int length();//num of items
 }
-class Dictionary extends PairMap{
-    int num;
+class Dictionary extends PairMap{//PairMap 상속
+    int num;                                    //Pair의 총 개수
     Dictionary(int N){
         num = 0;
         keyArray = new String[N];
         valueArray = new String[N];
     }
     @Override
-    public int length(){
+    public int length(){                    //추상클래스 메소드 구현
         return num;
     }
     @Override
-    public void put(String key, String value){
+    public void put(String key, String value){//추상 클래스 메소드 구현
         for(int i = 0;i<num;i++){
-            if(keyArray[i].equals(key)){
+            if(keyArray[i].equals(key)){//동일한 key가 있으면 value 덮어쓰기
                 valueArray[i] = value;
                 return;
             }
